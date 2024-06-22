@@ -758,6 +758,14 @@ if features['uchardet']
     dependencies += uchardet
 endif
 
+vapoursynth_base_dir = 'D:/Scoop/apps/vapoursynth/current/sdk'
+vapoursynth_inc_dir = vapoursynth_base_dir / 'include' / 'vapoursynth'
+vapoursynth_lib_dir = vapoursynth_base_dir / 'lib64'
+vapoursynth_version = '56'
+
+meson.override_dependency('vapoursynth', declare_dependency(include_directories: vapoursynth_inc_dir, link_args: vapoursynth_lib_dir / 'VapourSynth.lib', version: vapoursynth_version))
+meson.override_dependency('vapoursynth-script', declare_dependency(include_directories: vapoursynth_inc_dir, link_args: vapoursynth_lib_dir / 'VSScript.lib', version: vapoursynth_version))
+
 vapoursynth = dependency('vapoursynth', version: '>= 56', required: get_option('vapoursynth'))
 vapoursynth_script = dependency('vapoursynth-script', version: '>= 56',
                                 required: get_option('vapoursynth'))

@@ -176,18 +176,18 @@ clone-recursive = true
     Set-Content -Path $project.Path -Value $content
 }
 
-meson setup build `
+meson setup --reconfigure build `
     --wrap-mode=forcefallback `
     -Ddefault_library=static `
-    -Dlibmpv=true `
-    -Dtests=true `
+    -Dlibmpv=false `
+    -Dtests=false `
     -Dgpl=true `
     -Dffmpeg:gpl=enabled `
     -Dffmpeg:tests=disabled `
     -Dffmpeg:programs=disabled `
     -Dffmpeg:sdl2=disabled `
     -Dffmpeg:vulkan=auto `
-    -Dffmpeg:libdav1d=enabled `
+    -Dffmpeg:libdav1d=disabled `
     -Dlcms2:fastfloat=true `
     -Dlcms2:jpeg=disabled `
     -Dlcms2:tiff=disabled `
@@ -203,14 +203,13 @@ meson setup build `
     -Dluajit:amalgam=true `
     -Dd3d11=enabled `
     -Dvulkan=enabled `
-    -Djavascript=enabled `
+    -Djavascript=disabled `
     -Dwin32-smtc=enabled `
     -Dlua=luajit `
     -Ddrm=disabled `
     -Dlibarchive=disabled `
     -Drubberband=disabled `
     -Dwayland=disabled `
-    -Dx11=disabled
-ninja -C build mpv.exe mpv.com libmpv.a
-cp ./build/subprojects/vulkan-loader/vulkan.dll ./build/vulkan-1.dll
-./build/mpv.com -v --no-config
+    -Dx11=disabled `
+    -Dvapoursynth=disabled
+ninja -C build mpv.exe mpv.com
