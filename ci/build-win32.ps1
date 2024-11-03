@@ -201,45 +201,44 @@ clone-recursive = true
     Set-Content -Path $project.Path -Value $content
 }
 
-meson setup build `
+uv run meson setup --reconfigure build `
     --wrap-mode=forcefallback `
     -Ddefault_library=static `
-    -Dlibmpv=true `
-    -Dtests=true `
+    -Dlibmpv=false `
+    -Dtests=false `
     -Dgpl=true `
-    -Dffmpeg:gpl=enabled `
-    -Dffmpeg:tests=enabled `
-    -Dffmpeg:programs=enabled `
+    -Dffmpeg:gpl=disabled `
+    -Dffmpeg:tests=disabled `
+    -Dffmpeg:programs=disabled `
     -Dffmpeg:sdl2=disabled `
     -Dffmpeg:vulkan=auto `
-    -Dffmpeg:libdav1d=enabled `
-    -Dffmpeg:libjxl=enabled `
+    -Dffmpeg:libdav1d=disabled `
+    -Dffmpeg:libjxl=disabled `
     -Dlcms2:fastfloat=true `
     -Dlcms2:jpeg=disabled `
     -Dlcms2:tiff=disabled `
-    -Dlibass:test=enabled `
+    -Dlibass:test=disabled `
     -Dlibjpeg-turbo:tests=disabled `
     -Dlibusb:tests=false `
     -Dlibusb:examples=false `
     -Dlibplacebo:demos=false `
-    -Dlibplacebo:lcms=enabled `
-    -Dlibplacebo:shaderc=enabled `
+    -Dlibplacebo:lcms=disabled `
+    -Dlibplacebo:shaderc=disabled `
     -Dlibplacebo:tests=false `
-    -Dlibplacebo:vulkan=enabled `
+    -Dlibplacebo:vulkan=disabled `
     -Dlibplacebo:d3d11=enabled `
     -Dxxhash:inline-all=true `
     -Dxxhash:cli=false `
     -Dluajit:amalgam=true `
     -Dd3d11=enabled `
-    -Dvulkan=enabled `
-    -Djavascript=enabled `
+    -Dvulkan=disabled `
+    -Djavascript=disabled `
     -Dwin32-smtc=enabled `
     -Dlua=luajit `
     -Ddrm=disabled `
     -Dlibarchive=disabled `
     -Drubberband=disabled `
     -Dwayland=disabled `
-    -Dx11=disabled
-ninja -C build mpv.exe mpv.com libmpv.a
-cp ./build/subprojects/vulkan-loader/vulkan.dll ./build/vulkan-1.dll
-./build/mpv.com -v --no-config
+    -Dx11=disabled `
+    -Dvapoursynth=disabled
+uv run ninja -C build mpv.exe mpv.com
