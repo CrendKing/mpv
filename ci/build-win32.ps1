@@ -293,51 +293,49 @@ clone-recursive = true
     Set-Content -Path $project.Path -Value $content
 }
 
-meson setup build `
+uv run meson setup --reconfigure build `
     --wrap-mode=forcefallback `
     -Ddefault_library=static `
     -Dc_args="-I$amfExtractPath" `
     -Dlibmpv=false `
-    -Dtests=true `
-    -Dgpl=true `
-    -Dffmpeg:gpl=enabled `
-    -Dffmpeg:tests=enabled `
-    -Dffmpeg:programs=enabled `
+    -Dtests=false `
+    -Dgpl=false `
+    -Dffmpeg:gpl=disabled `
+    -Dffmpeg:tests=disabled `
+    -Dffmpeg:programs=disabled `
     -Dffmpeg:sdl2=disabled `
     -Dffmpeg:vulkan=auto `
-    -Dffmpeg:libdav1d=enabled `
-    -Dffmpeg:libjxl=enabled `
-    -Dffmpeg:libaom=enabled `
+    -Dffmpeg:libdav1d=disabled `
+    -Dffmpeg:libjxl=disabled `
+    -Dffmpeg:libaom=disabled `
     -Dharfbuzz:freetype=enabled `
     -Dlcms2:fastfloat=true `
     -Dlcms2:jpeg=disabled `
     -Dlcms2:tiff=disabled `
-    -Dlibass:test=enabled `
+    -Dlibass:test=disabled `
     -Dlibjpeg-turbo:tests=disabled `
     -Dlibusb:tests=false `
     -Dlibusb:examples=false `
     -Dlibplacebo:demos=false `
-    -Dlibplacebo:lcms=enabled `
-    -Dlibplacebo:shaderc=enabled `
+    -Dlibplacebo:lcms=disabled `
+    -Dlibplacebo:shaderc=disabled `
     -Dlibplacebo:tests=false `
-    -Dlibplacebo:vulkan=enabled `
+    -Dlibplacebo:vulkan=disabled `
     -Dlibplacebo:d3d11=enabled `
     -Dxxhash:inline-all=true `
     -Dxxhash:cli=false `
     -Dluajit:amalgam=true `
-    -Damf=enabled `
+    -Damf=disabled `
     -Dd3d11=enabled `
-    -Dsubrandr=enabled `
-    -Dvulkan=enabled `
-    -Djavascript=enabled `
+    -Dsubrandr=disabled `
+    -Dvulkan=disabled `
+    -Djavascript=disabled `
     -Dwin32-smtc=enabled `
     -Dlua=luajit `
     -Ddrm=disabled `
     -Dlibarchive=disabled `
     -Drubberband=disabled `
     -Dwayland=disabled `
-    -Dx11=disabled
+    -Dx11=disabled `
+    -Dvapoursynth=enabled
 ninja -C build mpv.exe mpv.com
-cp ./build/subprojects/vulkan-loader/vulkan.dll ./build/vulkan-1.dll
-cp ./etc/mpv-*.bat ./build
-./build/mpv.com -v --no-config

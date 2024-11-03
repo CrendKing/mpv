@@ -1,3 +1,13 @@
+[project]
+name = 'mpv'
+version = '1'
+requires-python = '>=3.13'
+dependencies = [
+    'cmake',
+    'meson',
+    'ninja',
+]
+
 [tool.ruff]
 line-length = 100
 
