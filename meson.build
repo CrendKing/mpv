@@ -763,9 +763,15 @@ if features['uchardet']
     dependencies += uchardet
 endif
 
-vapoursynth = dependency('vapoursynth', version: '>= 56', required: get_option('vapoursynth'))
-vapoursynth_script = dependency('vapoursynth-script', version: '>= 56',
-                                required: get_option('vapoursynth'))
+vapoursynth_base_dir = 'D:/Scoop/apps/vapoursynth/current/sdk'
+vapoursynth_inc_dir = vapoursynth_base_dir / 'include' / 'vapoursynth'
+vapoursynth_lib_dir = vapoursynth_base_dir / 'lib64'
+
+meson.override_dependency('vapoursynth', declare_dependency(include_directories: vapoursynth_inc_dir, link_args: vapoursynth_lib_dir / 'VapourSynth.lib'))
+meson.override_dependency('vapoursynth-script', declare_dependency(include_directories: vapoursynth_inc_dir, link_args: vapoursynth_lib_dir / 'VSScript.lib'))
+
+vapoursynth = dependency('vapoursynth', required: get_option('vapoursynth'))
+vapoursynth_script = dependency('vapoursynth-script', required: get_option('vapoursynth'))
 features += {'vapoursynth': vapoursynth.found() and vapoursynth_script.found()}
 if features['vapoursynth']
     dependencies += [vapoursynth, vapoursynth_script]
@@ -1781,8 +1787,7 @@ if get_option('cplayer')
     confdir = get_option('sysconfdir')
 
     conf_files = ['etc/mpv.conf', 'etc/input.conf',
-                  'etc/mplayer-input.conf', 'etc/restore-old-bindings.conf',
-                  'etc/restore-osc-bindings.conf']
+                  'etc/mplayer-input.conf', 'etc/restore-old-bindings.conf']
     install_data(conf_files, install_dir: join_paths(datadir, 'doc', 'mpv'))
 
     bash_install_dir = join_paths(datadir, 'bash-completion', 'completions')
