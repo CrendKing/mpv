@@ -788,6 +788,11 @@ if features['uchardet']
     dependencies += uchardet
 endif
 
+vapoursynth_dir = 'D:/Application/VapourSynth/.venv/Lib/site-packages/vapoursynth'
+vapoursynth_inc = include_directories(vapoursynth_dir + '/include')
+vapoursynth_manual = declare_dependency(include_directories: vapoursynth_inc, version: '74')
+meson.override_dependency('vapoursynth', vapoursynth_manual)
+
 vapoursynth = dependency('vapoursynth-script', version: '>= 56', required: false)
 if not vapoursynth.found()
     vapoursynth = dependency('vapoursynth', version: '>= 56', required: get_option('vapoursynth'))
