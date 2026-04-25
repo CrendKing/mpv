@@ -293,7 +293,7 @@ clone-recursive = true
     Set-Content -Path $project.Path -Value $content
 }
 
-uv run meson setup --reconfigure build `
+uv run meson setup --wipe build `
     --wrap-mode=forcefallback `
     -Ddefault_library=static `
     -Dc_args="-I$amfExtractPath" `
